@@ -2,7 +2,7 @@
 """Implementation of the Shamir secret sharing algorithm."""
 
 import random
-import lagrange
+from Shamir import lagrange
 
 # TODO Change this later
 MAX = 257

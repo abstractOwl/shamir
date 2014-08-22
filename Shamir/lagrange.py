@@ -17,9 +17,9 @@ def poly_mult(poly1, poly2):
     return result
 
 def test_poly_mult():
+    """ Unit test for poly_mult() """
     assert poly_mult([1, 3], [2, 4]) == [2, 10, 12]
     assert poly_mult([0], [1, 3, 4]) == [0, 0, 0]
-    print("test_poly_mult(): all tests passed")
 
 
 def poly_add(poly1, poly2):
@@ -37,10 +37,10 @@ def poly_add(poly1, poly2):
     return result
 
 def test_poly_add():
-    assert poly_add([1, 2], [3, 4])    == [4, 6]
-    assert poly_add([], [1, 2])        == [1, 2]
+    """ Unit test for poly_add() """
+    assert poly_add([1, 2], [3, 4]) == [4, 6]
+    assert poly_add([], [1, 2]) == [1, 2]
     assert poly_add([1, 2, 3], [5, 4]) == [1, 7, 7]
-    print("test_poly_add(): all tests passed")
 
 
 def construct(points):
@@ -58,13 +58,14 @@ def construct(points):
     return reduce(poly_add, result)[-1]
 
 def test_construct():
+    """ Unit test for construct() """
     # First test from Wikipedia
     assert construct([[2, 1942], [4, 3402], [5, 4414]]) == 1234.0
     assert construct([[1, 39], [2, 73], [3, 107]]) == 5.0
-    print("test_construct(): all tests passed")
 
 
 if __name__ == '__main__':
     test_poly_mult()
     test_poly_add()
     test_construct()
+    print "All unit tests passed"
