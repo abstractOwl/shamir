@@ -66,6 +66,17 @@ def main():
         for x_val, y_val in out:
             print " -- D[%2d]: (%2d, %d)" % (x_val - 1, x_val, y_val)
 
+        print
+        if total <= 10:
+            # WolframAlpha seems to give up after degree 10 polynomial
+            print "[*] See polynomial at:"
+            y_vals = [y_val for _, y_val in out]
+            url = "http://www.wolframalpha.com/input/?i="
+            print url + "%2B".join([
+                ("%dx%%5E%d" % (y_val, len(y_vals) - i - 1))
+                for i, y_val in enumerate(y_vals)
+            ])
+
     elif choice == "combine":
         total = int(raw_input("[?] Number of shares: "))
         points = []
