@@ -29,6 +29,10 @@ def encode(secret, total, thresh):
     thresh: number; `k`, the number of shares required to reconstruct the
         secret
     """
+    if thresh > total:
+        raise ValueError("threshold value [%d] exceeds total value [%d]"
+                         % (thresh, total))
+
     rand = random.SystemRandom()
     coefficients = [rand.randint(0, MAX) for _ in range(thresh - 1)] \
         + [secret]
@@ -44,7 +48,38 @@ def decode(shares):
     """
     return lagrange.construct(shares)
 
+def main():
+    """ Main function """
+    choice = raw_input("[?] Split or combine a secret? [split/combine] ")
+
+    print
+
+    if choice == "split":
+        secret = int(raw_input("[?] Enter secret: "))
+        total = int(raw_input("[?] Enter number of shares: "))
+        thresh = int(raw_input("[?] Enter threshold value: "))
+
+        out = encode(secret, total, thresh)
+
+        print
+        print "[*] Printing shares:"
+        for x_val, y_val in out:
+            print " -- D[%2d]: (%2d, %d)" % (x_val - 1, x_val, y_val)
+
+    elif choice == "combine":
+        total = int(raw_input("[?] Number of shares: "))
+        points = []
+
+        for _ in range(total):
+            point = raw_input("[?] Enter comma-separated pair: ").split(",")
+            points.append([int(x) for x in point])
+
+        print
+        print "[*] The secret is %d." % decode(points)
+
+    else:
+        print "[!] ERROR: Invalid choice."
+
 if __name__ == '__main__':
-    # TODO Add cmd-line args
-    print encode(5, 3, 2)
-    print decode(encode(5, 3, 2))
+    main()
+
